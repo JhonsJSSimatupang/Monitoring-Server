@@ -31,43 +31,7 @@ Implementasi dilakukan menggunakan Docker Compose sehingga seluruh layanan dapat
 ---
 
 #  System Architecture
-
-```text
-┌─────────────────────────────┐
-│          Browser            │
-└─────────────┬───────────────┘
-              │
-    ┌─────────┴─────────┐
-    │                   │
-    ▼                   ▼
-
-Grafana            Flask Web App
-:3000                 :5000
-
-    ▲                   │
-    │                   │
-    │                   ▼
-
-┌─────────────────────────────┐
-│        Prometheus           │
-│           :9090             │
-└─────────────┬───────────────┘
-              │
-      ┌───────┼────────┐
-      │       │        │
-      ▼       ▼        ▼
-
-Node Exporter  cAdvisor  Flask Metrics
-:9100          :8080     /metrics
-
-              │
-              ▼
-
-        Alertmanager
-            :9093
-```
-
----
+![Architecture](architecture.png)
 
 #  Features
 
