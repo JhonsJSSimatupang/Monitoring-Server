@@ -1,127 +1,99 @@
 # 🚀 Server Monitoring Stack
 
 
+# 📖 Gambaran Umum
 
-## 📖 Overview
-
-Server Monitoring Stack adalah implementasi sistem monitoring server berbasis container yang dirancang untuk melakukan observability terhadap aplikasi, container, dan resource sistem secara real-time.
+Server Monitoring Stack merupakan implementasi sistem monitoring server berbasis container yang dirancang untuk melakukan observasi (observability) terhadap aplikasi, container Docker, dan sumber daya sistem secara real-time.
 
 Proyek ini mengintegrasikan beberapa teknologi monitoring modern yang umum digunakan pada lingkungan DevOps dan Administrasi Server, yaitu:
 
-* Prometheus sebagai metrics collector
-* Grafana sebagai visualisasi dashboard
-* Flask Application sebagai target monitoring
-* Node Exporter sebagai monitoring resource host
-* cAdvisor sebagai monitoring container Docker
-* Alertmanager sebagai sistem notifikasi dan alerting
+* Prometheus sebagai pengumpul dan penyimpan metrik.
+* Grafana sebagai dashboard visualisasi data.
+* Flask sebagai aplikasi target yang dimonitor.
+* Node Exporter sebagai pengumpul metrik sumber daya host.
+* cAdvisor sebagai pengumpul metrik container Docker.
+* Alertmanager sebagai pengelola notifikasi dan peringatan sistem.
 
-Implementasi dilakukan menggunakan Docker Compose sehingga seluruh layanan dapat dijalankan secara otomatis dan terintegrasi dalam satu environment.
-
----
-
-# 🎯 Project Objectives
-
-* Menerapkan deployment multi-container menggunakan Docker Compose
-* Mengimplementasikan monitoring server secara real-time
-* Mengumpulkan metrics aplikasi dan sistem
-* Membangun dashboard visualisasi profesional
-* Mengimplementasikan alerting system
-* Mendokumentasikan proses administrasi server secara lengkap
+Implementasi dilakukan menggunakan Docker Compose sehingga seluruh layanan dapat dijalankan secara otomatis dan terintegrasi dalam satu lingkungan kerja.
 
 ---
 
-# 🏗️ System Architecture
+# 🎯 Tujuan Proyek
+
+* Menerapkan deployment multi-container menggunakan Docker Compose.
+* Mengimplementasikan monitoring server secara real-time.
+* Mengumpulkan metrik aplikasi dan sistem.
+* Membangun dashboard visualisasi yang informatif.
+* Mengimplementasikan sistem alerting sederhana.
+* Mendokumentasikan proses administrasi server secara lengkap.
+
+---
+
+# 🏗️ Arsitektur Sistem
+
+<p align="center">
+  <img src="server_monitoring_architecture.png" alt="Arsitektur Sistem Monitoring" width="1000">
+</p>
+
+<p align="center">
+  <em>Arsitektur Platform Monitoring Server</em>
+</p>
+
+---
+
+# 🔥 Fitur Utama
+
+## Monitoring Aplikasi
+
+* Total permintaan HTTP (HTTP Request)
+* Monitoring pengguna aktif
+* Monitoring latensi endpoint
+* Monitoring tingkat kesalahan (error rate)
+* Analisis waktu respons aplikasi
+
+## Monitoring Infrastruktur
+
+* Penggunaan CPU
+* Penggunaan Memori
+* Penggunaan Disk
+* Aktivitas Input/Output Disk
+* Trafik Jaringan
+* Beban Sistem (System Load)
+
+## Monitoring Container
+
+* Penggunaan CPU setiap container
+* Penggunaan memori setiap container
+* Penggunaan jaringan setiap container
+* Status kesehatan container
+
+## Sistem Peringatan (Alerting)
+
+* Peringatan penggunaan CPU tinggi
+* Peringatan penggunaan memori tinggi
+* Peringatan layanan tidak aktif
+* Peringatan kesalahan aplikasi
+
+---
+
+# 📦 Teknologi yang Digunakan
+
+| Komponen             | Teknologi      |
+| -------------------- | -------------- |
+| Aplikasi Backend     | Flask          |
+| Pengumpulan Metrik   | Prometheus     |
+| Dashboard Monitoring | Grafana        |
+| Monitoring Host      | Node Exporter  |
+| Monitoring Container | cAdvisor       |
+| Manajemen Alert      | Alertmanager   |
+| Containerisasi       | Docker         |
+| Orkestrasi           | Docker Compose |
+
+---
+
+# 📂 Struktur Proyek
 
 ```text
-┌─────────────────────────────┐
-│          Browser            │
-└─────────────┬───────────────┘
-              │
-    ┌─────────┴─────────┐
-    │                   │
-    ▼                   ▼
-
-Grafana            Flask Web App
-:3000                 :5000
-
-    ▲                   │
-    │                   │
-    │                   ▼
-
-┌─────────────────────────────┐
-│        Prometheus           │
-│           :9090             │
-└─────────────┬───────────────┘
-              │
-      ┌───────┼────────┐
-      │       │        │
-      ▼       ▼        ▼
-
-Node Exporter  cAdvisor  Flask Metrics
-:9100          :8080     /metrics
-
-              │
-              ▼
-
-        Alertmanager
-            :9093
-```
-
----
-
-# 🔥 Features
-
-## Application Monitoring
-
-* Total HTTP Requests
-* Active Users Monitoring
-* Endpoint Latency Tracking
-* Error Rate Monitoring
-* Response Time Histogram
-
-## Infrastructure Monitoring
-
-* CPU Usage
-* Memory Utilization
-* Disk Usage
-* Disk I/O
-* Network Traffic
-* System Load
-
-## Container Monitoring
-
-* Container CPU Usage
-* Container Memory Usage
-* Container Network Usage
-* Container Health Status
-
-## Alerting
-
-* High CPU Usage Alert
-* High Memory Usage Alert
-* Service Down Alert
-* Application Error Alert
-
----
-
-# 📦 Technology Stack
-
-| Component            | Technology     |
-| -------------------- | -------------- |
-| Backend Application  | Flask          |
-| Metrics Collection   | Prometheus     |
-| Dashboard            | Grafana        |
-| Host Monitoring      | Node Exporter  |
-| Container Monitoring | cAdvisor       |
-| Alert Management     | Alertmanager   |
-| Containerization     | Docker         |
-| Orchestration        | Docker Compose |
-
----
-
-# 📂 Project Structure
-
-```bash
 server-monitoring/
 │
 ├── docker-compose.yml
@@ -152,11 +124,11 @@ server-monitoring/
 
 ---
 
-# 🚀 Quick Start
+# 🚀 Cara Menjalankan
 
-## Prerequisites
+## Persyaratan
 
-Pastikan perangkat telah memiliki:
+Pastikan perangkat telah terpasang:
 
 * Docker Desktop
 * Docker Compose
@@ -182,7 +154,7 @@ cd server-monitoring
 
 ---
 
-## Build & Deploy
+## Build dan Menjalankan Sistem
 
 ```bash
 docker compose up -d --build
@@ -190,28 +162,17 @@ docker compose up -d --build
 
 ---
 
-## Verify Containers
+## Memeriksa Status Container
 
 ```bash
 docker compose ps
 ```
 
-Output yang diharapkan:
-
-```bash
-flask-app       running
-prometheus      running
-grafana         running
-node-exporter   running
-cadvisor        running
-alertmanager    running
-```
-
 ---
 
-# 🌐 Service Access
+# 🌐 Akses Layanan
 
-| Service           | URL                   |
+| Layanan           | URL                   |
 | ----------------- | --------------------- |
 | Flask Application | http://localhost:5000 |
 | Grafana Dashboard | http://localhost:3000 |
@@ -222,124 +183,112 @@ alertmanager    running
 
 ---
 
-# 📊 Metrics Collected
+# 📊 Metrik yang Dimonitor
 
-## Custom Flask Metrics
+## Metrik Aplikasi Flask
 
-```text
-flask_request_count_total
-flask_request_latency_seconds
-flask_active_users
-flask_error_count_total
-```
+* flask_request_count_total
+* flask_request_latency_seconds
+* flask_active_users
+* flask_error_count_total
 
-## Node Exporter Metrics
+## Metrik Sistem (Node Exporter)
 
-```text
-CPU Usage
-Memory Usage
-Disk Usage
-Disk I/O
-Network Throughput
-System Load
-```
+* Penggunaan CPU
+* Penggunaan Memori
+* Penggunaan Disk
+* Aktivitas Disk I/O
+* Trafik Jaringan
+* Beban Sistem
 
-## cAdvisor Metrics
+## Metrik Container (cAdvisor)
 
-```text
-Container CPU
-Container Memory
-Container Network
-Container Filesystem
-```
+* Penggunaan CPU Container
+* Penggunaan Memori Container
+* Penggunaan Jaringan Container
+* Penggunaan Sistem Berkas Container
 
 ---
 
-# 🧪 Performance Testing
+# 🧪 Pengujian Performa
 
-Generate traffic untuk simulasi beban sistem:
+Untuk mensimulasikan beban pada aplikasi:
 
 ```bash
 bash scripts/load-test.sh 120
 ```
 
-Script akan menghasilkan request selama 120 detik sehingga dashboard Grafana dapat menampilkan perubahan metrics secara real-time.
+Script akan menghasilkan trafik selama 120 detik sehingga perubahan metrik dapat diamati secara langsung pada dashboard Grafana.
 
 ---
 
-# 🔐 Security Configuration
+# 🔐 Konfigurasi Keamanan
 
-Implementasi keamanan yang digunakan:
+Beberapa mekanisme keamanan yang diterapkan:
 
-* Grafana Authentication Enabled
-* User Registration Disabled
-* Isolated Docker Network
-* Restart Policy Enabled
-* Internal Service Communication
-* Least Exposure Principle
-
-```yaml
-GF_USERS_ALLOW_SIGN_UP=false
-restart: unless-stopped
-```
+* Autentikasi Grafana diaktifkan.
+* Registrasi pengguna dinonaktifkan.
+* Jaringan Docker terisolasi.
+* Kebijakan restart otomatis container.
+* Komunikasi internal antar layanan.
+* Prinsip pembatasan akses minimum (Least Privilege).
 
 ---
 
-# 📈 Monitoring Dashboard
+# 📈 Dashboard Monitoring
 
-Dashboard Grafana menampilkan:
+Dashboard Grafana menampilkan informasi:
 
-* CPU Usage Overview
-* Memory Utilization
-* Network Traffic
-* HTTP Request Rate
-* Error Monitoring
-* Response Time Analysis
-* Container Resource Usage
+* Penggunaan CPU
+* Penggunaan Memori
+* Trafik Jaringan
+* Jumlah Request HTTP
+* Monitoring Error
+* Analisis Waktu Respons
+* Penggunaan Resource Container
 
-Dashboard diperbarui secara otomatis berdasarkan data yang dikumpulkan Prometheus.
+Semua data diperbarui secara otomatis berdasarkan metrik yang dikumpulkan oleh Prometheus.
 
 ---
 
 # 🛠️ Troubleshooting
 
-### Container Tidak Berjalan
+### Melihat Log Container
 
 ```bash
 docker compose logs
 ```
 
-### Cek Status Semua Service
+### Memeriksa Status Layanan
 
 ```bash
 docker compose ps
 ```
 
-### Restart Service
+### Restart Seluruh Layanan
 
 ```bash
 docker compose restart
 ```
 
-### Rebuild Project
+### Rebuild Sistem
 
 ```bash
 docker compose down
-
 docker compose up -d --build
 ```
 
 ---
 
-# 🧹 Cleanup
+# 🧹 Menghentikan dan Membersihkan Sistem
 
-Stop seluruh service:
+Menghentikan seluruh layanan:
 
 ```bash
 docker compose down
 ```
 
-Hapus seluruh data monitoring:
+Menghapus seluruh data monitoring:
 
 ```bash
 docker compose down -v
@@ -347,25 +296,36 @@ docker compose down -v
 
 ---
 
-# 🎓 Learning Outcomes
+# 🎓 Hasil Pembelajaran
 
-Melalui proyek ini berhasil diimplementasikan:
+Melalui proyek ini berhasil diterapkan:
 
 ✅ Administrasi Server
 
-✅ Multi-Container Deployment
+✅ Deployment Multi-Container
 
-✅ Monitoring Infrastructure
+✅ Monitoring Infrastruktur
 
-✅ Monitoring Application
+✅ Monitoring Aplikasi
 
 ✅ Docker Networking
 
-✅ Alerting System
+✅ Sistem Alerting
 
-✅ Troubleshooting Service
+✅ Troubleshooting Layanan
 
 ✅ Dokumentasi Sistem
 
 ---
 
+# 👥 Tim Pengembang
+
+Proyek ini dikembangkan sebagai bagian dari tugas:
+
+**Unjuk Keterampilan Administrasi Server**
+
+**Program Studi Teknologi Informasi**
+
+**Universitas Brawijaya**
+
+**Tahun 2026**
