@@ -125,8 +125,3 @@ server-monitoring/
     └── load-test.sh
 ```
 
-## 👤 Anggota
-
-| Nama | NIM |
-|---|---|
-| (Nama kamu) | (NIM kamu) |
