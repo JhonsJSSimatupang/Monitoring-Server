@@ -1,0 +1,40 @@
+groups:
+  - name: flask_alerts
+    rules:
+      - alert: HighErrorRate
+        expr: rate(flask_error_count_total[5m]) > 0.1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Flask app error rate tinggi"
+          description: "Error rate lebih dari 0.1/s selama 1 menit terakhir."
+
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, rate(flask_request_latency_seconds_bucket[5m])) > 2
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Latency Flask app tinggi"
+          description: "P95 latency melebihi 2 detik."
+
+  - name: system_alerts
+    rules:
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 80
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "CPU usage tinggi"
+          description: "CPU usage di atas 80% selama 2 menit."
+
+      - alert: HighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 85
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Memory usage tinggi"
+          description: "Memory usage di atas 85%."
