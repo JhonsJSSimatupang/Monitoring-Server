@@ -1,16 +1,8 @@
-# 🚀 Server Monitoring Stack
+# Server Monitoring Stack
 
-### Enterprise Monitoring Platform with Prometheus, Grafana, Flask, Node Exporter & Alertmanager
 
-![Docker](https://img.shields.io/badge/Docker-Compose-blue)
-![Prometheus](https://img.shields.io/badge/Prometheus-Monitoring-orange)
-![Grafana](https://img.shields.io/badge/Grafana-Dashboard-red)
-![Flask](https://img.shields.io/badge/Flask-WebApp-green)
-![Status](https://img.shields.io/badge/Status-Running-success)
 
----
-
-## 📖 Overview
+## Overview
 
 Server Monitoring Stack adalah implementasi sistem monitoring server berbasis container yang dirancang untuk melakukan observability terhadap aplikasi, container, dan resource sistem secara real-time.
 
@@ -27,7 +19,7 @@ Implementasi dilakukan menggunakan Docker Compose sehingga seluruh layanan dapat
 
 ---
 
-# 🎯 Project Objectives
+#  Project Objectives
 
 * Menerapkan deployment multi-container menggunakan Docker Compose
 * Mengimplementasikan monitoring server secara real-time
@@ -38,7 +30,7 @@ Implementasi dilakukan menggunakan Docker Compose sehingga seluruh layanan dapat
 
 ---
 
-# 🏗️ System Architecture
+#  System Architecture
 
 ```text
 ┌─────────────────────────────┐
@@ -77,7 +69,7 @@ Node Exporter  cAdvisor  Flask Metrics
 
 ---
 
-# 🔥 Features
+#  Features
 
 ## Application Monitoring
 
@@ -112,7 +104,7 @@ Node Exporter  cAdvisor  Flask Metrics
 
 ---
 
-# 📦 Technology Stack
+#  Technology Stack
 
 | Component            | Technology     |
 | -------------------- | -------------- |
@@ -160,7 +152,7 @@ server-monitoring/
 
 ---
 
-# 🚀 Quick Start
+#  Quick Start
 
 ## Prerequisites
 
@@ -217,7 +209,7 @@ alertmanager    running
 
 ---
 
-# 🌐 Service Access
+#  Service Access
 
 | Service           | URL                   |
 | ----------------- | --------------------- |
@@ -230,7 +222,7 @@ alertmanager    running
 
 ---
 
-# 📊 Metrics Collected
+# Metrics Collected
 
 ## Custom Flask Metrics
 
@@ -263,7 +255,7 @@ Container Filesystem
 
 ---
 
-# 🧪 Performance Testing
+#  Performance Testing
 
 Generate traffic untuk simulasi beban sistem:
 
@@ -275,7 +267,7 @@ Script akan menghasilkan request selama 120 detik sehingga dashboard Grafana dap
 
 ---
 
-# 🔐 Security Configuration
+# Security Configuration
 
 Implementasi keamanan yang digunakan:
 
@@ -293,7 +285,7 @@ restart: unless-stopped
 
 ---
 
-# 📈 Monitoring Dashboard
+# Monitoring Dashboard
 
 Dashboard Grafana menampilkan:
 
@@ -309,7 +301,7 @@ Dashboard diperbarui secara otomatis berdasarkan data yang dikumpulkan Prometheu
 
 ---
 
-# 🛠️ Troubleshooting
+#  Troubleshooting
 
 ### Container Tidak Berjalan
 
@@ -339,7 +331,7 @@ docker compose up -d --build
 
 ---
 
-# 🧹 Cleanup
+#  Cleanup
 
 Stop seluruh service:
 
@@ -355,7 +347,7 @@ docker compose down -v
 
 ---
 
-# 🎓 Learning Outcomes
+#  Learning Outcomes
 
 Melalui proyek ini berhasil diimplementasikan:
 
