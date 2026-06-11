@@ -1,127 +1,378 @@
-# 🖥️ Server Monitoring Stack
+# 🚀 Server Monitoring Stack
 
-Proyek implementasi sistem monitoring server menggunakan **Prometheus + Grafana + Flask**, dikerjakan sebagai bagian dari tugas Unjuk Keterampilan Administrasi Server.
+### Enterprise Monitoring Platform with Prometheus, Grafana, Flask, Node Exporter & Alertmanager
 
-## 📐 Arsitektur Sistem
+![Docker](https://img.shields.io/badge/Docker-Compose-blue)
+![Prometheus](https://img.shields.io/badge/Prometheus-Monitoring-orange)
+![Grafana](https://img.shields.io/badge/Grafana-Dashboard-red)
+![Flask](https://img.shields.io/badge/Flask-WebApp-green)
+![Status](https://img.shields.io/badge/Status-Running-success)
 
+---
+
+## 📖 Overview
+
+Server Monitoring Stack adalah implementasi sistem monitoring server berbasis container yang dirancang untuk melakukan observability terhadap aplikasi, container, dan resource sistem secara real-time.
+
+Proyek ini mengintegrasikan beberapa teknologi monitoring modern yang umum digunakan pada lingkungan DevOps dan Administrasi Server, yaitu:
+
+* Prometheus sebagai metrics collector
+* Grafana sebagai visualisasi dashboard
+* Flask Application sebagai target monitoring
+* Node Exporter sebagai monitoring resource host
+* cAdvisor sebagai monitoring container Docker
+* Alertmanager sebagai sistem notifikasi dan alerting
+
+Implementasi dilakukan menggunakan Docker Compose sehingga seluruh layanan dapat dijalankan secara otomatis dan terintegrasi dalam satu environment.
+
+---
+
+# 🎯 Project Objectives
+
+* Menerapkan deployment multi-container menggunakan Docker Compose
+* Mengimplementasikan monitoring server secara real-time
+* Mengumpulkan metrics aplikasi dan sistem
+* Membangun dashboard visualisasi profesional
+* Mengimplementasikan alerting system
+* Mendokumentasikan proses administrasi server secara lengkap
+
+---
+
+# 🏗️ System Architecture
+
+```text
+┌─────────────────────────────┐
+│          Browser            │
+└─────────────┬───────────────┘
+              │
+    ┌─────────┴─────────┐
+    │                   │
+    ▼                   ▼
+
+Grafana            Flask Web App
+:3000                 :5000
+
+    ▲                   │
+    │                   │
+    │                   ▼
+
+┌─────────────────────────────┐
+│        Prometheus           │
+│           :9090             │
+└─────────────┬───────────────┘
+              │
+      ┌───────┼────────┐
+      │       │        │
+      ▼       ▼        ▼
+
+Node Exporter  cAdvisor  Flask Metrics
+:9100          :8080     /metrics
+
+              │
+              ▼
+
+        Alertmanager
+            :9093
 ```
-Browser
-  ├── localhost:3000  →  Grafana (Dashboard Monitoring)
-  ├── localhost:5000  →  Flask Web App (Target yang dimonitor)
-  ├── localhost:9090  →  Prometheus (Time-series Database)
-  ├── localhost:9093  →  Alertmanager
-  ├── localhost:9100  →  Node Exporter (metrics sistem)
-  └── localhost:8080  →  cAdvisor (metrics container)
 
-Prometheus scrapes:
-  ├── flask-app:5000/metrics   → custom app metrics
-  ├── node-exporter:9100       → CPU, RAM, disk, network
-  └── cadvisor:8080            → container resource usage
-```
+---
 
-## 🧩 Komponen
+# 🔥 Features
 
-| Komponen | Image | Port | Fungsi |
-|---|---|---|---|
-| Flask App | custom build | 5000 | Web app target monitoring |
-| Prometheus | prom/prometheus | 9090 | Scrape & simpan metrics |
-| Grafana | grafana/grafana | 3000 | Visualisasi dashboard |
-| Node Exporter | prom/node-exporter | 9100 | Metrics resource sistem host |
-| cAdvisor | gcr.io/cadvisor | 8080 | Metrics container Docker |
-| Alertmanager | prom/alertmanager | 9093 | Manajemen alert |
+## Application Monitoring
 
-## 🚀 Cara Menjalankan
+* Total HTTP Requests
+* Active Users Monitoring
+* Endpoint Latency Tracking
+* Error Rate Monitoring
+* Response Time Histogram
 
-### Prerequisites
-- Docker Desktop terinstall dan berjalan
-- Git
+## Infrastructure Monitoring
 
-### 1. Clone repository
+* CPU Usage
+* Memory Utilization
+* Disk Usage
+* Disk I/O
+* Network Traffic
+* System Load
+
+## Container Monitoring
+
+* Container CPU Usage
+* Container Memory Usage
+* Container Network Usage
+* Container Health Status
+
+## Alerting
+
+* High CPU Usage Alert
+* High Memory Usage Alert
+* Service Down Alert
+* Application Error Alert
+
+---
+
+# 📦 Technology Stack
+
+| Component            | Technology     |
+| -------------------- | -------------- |
+| Backend Application  | Flask          |
+| Metrics Collection   | Prometheus     |
+| Dashboard            | Grafana        |
+| Host Monitoring      | Node Exporter  |
+| Container Monitoring | cAdvisor       |
+| Alert Management     | Alertmanager   |
+| Containerization     | Docker         |
+| Orchestration        | Docker Compose |
+
+---
+
+# 📂 Project Structure
+
 ```bash
-git clone https://github.com/<username>/server-monitoring.git
-cd server-monitoring
-```
-
-### 2. Jalankan semua layanan
-```bash
-docker compose up -d --build
-```
-
-### 3. Cek status container
-```bash
-docker compose ps
-```
-
-### 4. Akses layanan
-| URL | Keterangan |
-|---|---|
-| http://localhost:5000 | Flask Web App |
-| http://localhost:3000 | Grafana (admin / admin123) |
-| http://localhost:9090 | Prometheus |
-| http://localhost:9093 | Alertmanager |
-
-### 5. Generate traffic untuk demo
-```bash
-bash scripts/load-test.sh 120   # jalankan load test 2 menit
-```
-
-## 📊 Metrics yang Dimonitor
-
-### Flask App Metrics (custom)
-- `flask_request_count_total` — total HTTP request per endpoint & status
-- `flask_request_latency_seconds` — latency per endpoint (histogram)
-- `flask_active_users` — simulasi jumlah user aktif
-- `flask_error_count_total` — total error yang terjadi
-
-### System Metrics (Node Exporter)
-- CPU usage per core
-- Memory usage & available
-- Disk I/O & usage
-- Network traffic in/out
-
-### Container Metrics (cAdvisor)
-- CPU usage per container
-- Memory usage per container
-- Network per container
-
-## 🔐 Keamanan
-
-- Grafana menggunakan autentikasi username/password (non-default)
-- `GF_USERS_ALLOW_SIGN_UP=false` — registrasi user dinonaktifkan
-- Docker network terisolasi (`monitoring` bridge network)
-- Container berjalan dengan policy `restart: unless-stopped`
-
-## 🛑 Menghentikan & Membersihkan
-
-```bash
-# Stop semua container
-docker compose down
-
-# Stop + hapus volume (data Prometheus & Grafana)
-docker compose down -v
-```
-
-## 📁 Struktur Folder
-
-```
 server-monitoring/
+│
 ├── docker-compose.yml
+│
 ├── flask-app/
 │   ├── app.py
 │   ├── requirements.txt
 │   └── Dockerfile
+│
 ├── prometheus/
 │   ├── prometheus.yml
 │   └── alert_rules.yml
+│
 ├── grafana/
 │   └── provisioning/
 │       ├── datasources/
 │       │   └── prometheus.yml
+│       │
 │       └── dashboards/
 │           └── dashboard.yml
+│
 ├── alertmanager/
 │   └── alertmanager.yml
+│
 └── scripts/
     └── load-test.sh
 ```
 
+---
+
+# 🚀 Quick Start
+
+## Prerequisites
+
+Pastikan perangkat telah memiliki:
+
+* Docker Desktop
+* Docker Compose
+* Git
+
+Verifikasi instalasi:
+
+```bash
+docker --version
+docker compose version
+git --version
+```
+
+---
+
+## Clone Repository
+
+```bash
+git clone https://github.com/<username>/server-monitoring.git
+
+cd server-monitoring
+```
+
+---
+
+## Build & Deploy
+
+```bash
+docker compose up -d --build
+```
+
+---
+
+## Verify Containers
+
+```bash
+docker compose ps
+```
+
+Output yang diharapkan:
+
+```bash
+flask-app       running
+prometheus      running
+grafana         running
+node-exporter   running
+cadvisor        running
+alertmanager    running
+```
+
+---
+
+# 🌐 Service Access
+
+| Service           | URL                   |
+| ----------------- | --------------------- |
+| Flask Application | http://localhost:5000 |
+| Grafana Dashboard | http://localhost:3000 |
+| Prometheus        | http://localhost:9090 |
+| Alertmanager      | http://localhost:9093 |
+| Node Exporter     | http://localhost:9100 |
+| cAdvisor          | http://localhost:8080 |
+
+---
+
+# 📊 Metrics Collected
+
+## Custom Flask Metrics
+
+```text
+flask_request_count_total
+flask_request_latency_seconds
+flask_active_users
+flask_error_count_total
+```
+
+## Node Exporter Metrics
+
+```text
+CPU Usage
+Memory Usage
+Disk Usage
+Disk I/O
+Network Throughput
+System Load
+```
+
+## cAdvisor Metrics
+
+```text
+Container CPU
+Container Memory
+Container Network
+Container Filesystem
+```
+
+---
+
+# 🧪 Performance Testing
+
+Generate traffic untuk simulasi beban sistem:
+
+```bash
+bash scripts/load-test.sh 120
+```
+
+Script akan menghasilkan request selama 120 detik sehingga dashboard Grafana dapat menampilkan perubahan metrics secara real-time.
+
+---
+
+# 🔐 Security Configuration
+
+Implementasi keamanan yang digunakan:
+
+* Grafana Authentication Enabled
+* User Registration Disabled
+* Isolated Docker Network
+* Restart Policy Enabled
+* Internal Service Communication
+* Least Exposure Principle
+
+```yaml
+GF_USERS_ALLOW_SIGN_UP=false
+restart: unless-stopped
+```
+
+---
+
+# 📈 Monitoring Dashboard
+
+Dashboard Grafana menampilkan:
+
+* CPU Usage Overview
+* Memory Utilization
+* Network Traffic
+* HTTP Request Rate
+* Error Monitoring
+* Response Time Analysis
+* Container Resource Usage
+
+Dashboard diperbarui secara otomatis berdasarkan data yang dikumpulkan Prometheus.
+
+---
+
+# 🛠️ Troubleshooting
+
+### Container Tidak Berjalan
+
+```bash
+docker compose logs
+```
+
+### Cek Status Semua Service
+
+```bash
+docker compose ps
+```
+
+### Restart Service
+
+```bash
+docker compose restart
+```
+
+### Rebuild Project
+
+```bash
+docker compose down
+
+docker compose up -d --build
+```
+
+---
+
+# 🧹 Cleanup
+
+Stop seluruh service:
+
+```bash
+docker compose down
+```
+
+Hapus seluruh data monitoring:
+
+```bash
+docker compose down -v
+```
+
+---
+
+# 🎓 Learning Outcomes
+
+Melalui proyek ini berhasil diimplementasikan:
+
+✅ Administrasi Server
+
+✅ Multi-Container Deployment
+
+✅ Monitoring Infrastructure
+
+✅ Monitoring Application
+
+✅ Docker Networking
+
+✅ Alerting System
+
+✅ Troubleshooting Service
+
+✅ Dokumentasi Sistem
+
+---
