@@ -31,11 +31,39 @@ Implementasi dilakukan menggunakan Docker Compose sehingga seluruh layanan dapat
 ---
 
 #  System Architecture
-The monitoring platform consists of six integrated services that collect, process, visualize, and alert on system and application metrics.
+text
+┌─────────────────────────────┐
+│          Browser            │
+└─────────────┬───────────────┘
+              │
+    ┌─────────┴─────────┐
+    │                   │
+    ▼                   ▼
 
-<p align="center">
-  <img src="docs/server_monitoring_architecture.png" alt="Architecture Diagram" width="1000">
-</p>
+Grafana            Flask Web App
+:3000                 :5000
+
+    ▲                   │
+    │                   │
+    │                   ▼
+
+┌─────────────────────────────┐
+│        Prometheus           │
+│           :9090             │
+└─────────────┬───────────────┘
+              │
+      ┌───────┼────────┐
+      │       │        │
+      ▼       ▼        ▼
+
+Node Exporter  cAdvisor  Flask Metrics
+:9100          :8080     /metrics
+
+              │
+              ▼
+
+        Alertmanager
+            :9093
 
 #  Features
 
