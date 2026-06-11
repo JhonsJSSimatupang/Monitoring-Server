@@ -31,7 +31,9 @@ Implementasi dilakukan menggunakan Docker Compose sehingga seluruh layanan dapat
 ---
 
 #  System Architecture
-![Architecture](architecture.png)
+<p align="center">
+  <img src="docs/server_monitoring_architecture.png" width="900">
+</p>
 
 #  Features
 
