@@ -1,4 +1,4 @@
-# 🚀 Server Monitoring Stack
+# Server Monitoring Stack
 
 
 # 📖 Gambaran Umum
@@ -31,13 +31,40 @@ Implementasi dilakukan menggunakan Docker Compose sehingga seluruh layanan dapat
 
 # 🏗️ Arsitektur Sistem
 
-<p align="center">
-  <img src="server_monitoring_architecture.png" alt="Arsitektur Sistem Monitoring" width="1000">
-</p>
+```text
+┌─────────────────────────────┐
+│          Browser            │
+└─────────────┬───────────────┘
+              │
+    ┌─────────┴─────────┐
+    │                   │
+    ▼                   ▼
 
-<p align="center">
-  <em>Arsitektur Platform Monitoring Server</em>
-</p>
+Grafana            Flask Web App
+:3000                 :5000
+
+    ▲                   │
+    │                   │
+    │                   ▼
+
+┌─────────────────────────────┐
+│        Prometheus           │
+│           :9090             │
+└─────────────┬───────────────┘
+              │
+      ┌───────┼────────┐
+      │       │        │
+      ▼       ▼        ▼
+
+Node Exporter  cAdvisor  Flask Metrics
+:9100          :8080     /metrics
+
+              │
+              ▼
+
+        Alertmanager
+            :9093
+```
 
 ---
 
@@ -318,14 +345,3 @@ Melalui proyek ini berhasil diterapkan:
 
 ---
 
-# 👥 Tim Pengembang
-
-Proyek ini dikembangkan sebagai bagian dari tugas:
-
-**Unjuk Keterampilan Administrasi Server**
-
-**Program Studi Teknologi Informasi**
-
-**Universitas Brawijaya**
-
-**Tahun 2026**
